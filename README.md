@@ -6,16 +6,6 @@
 This package can be used to add some functionality to your Eloquent Models using properties.
 
 
-
-
-
-
-
-Instead of changing the default Laravel Mailer, Laravel DKIM will listen for the `\Illuminate\Mail\Events\MessageSending`
-Event and then call the `\TobyMaxham\LaravelDkimSigner\Listener\ApplyDkimSignature` Listener.
-
-This keeps your Laravel Mailer behavior or any changes you have done inside your projects.
-
 ## Installation
 
 You can install the package via composer:
