@@ -1,0 +1,34 @@
+{
+    "name": "tobymaxham/laravel-properties",
+    "description": "This package can be used to add some functionality to your Eloquent Models using properties",
+    "keywords": [
+        "TobyMaxham",
+        "laravel",
+        "properties",
+        "helpers"
+    ],
+    "homepage": "https://github.com/TobyMaxham/laravel-properties",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": ":TobyMaxham",
+            "email": "git@maxham.de",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.4|^8.0|^8.1|^8.2",
+        "illuminate/database": "^8.0|^9.0|^10.0",
+        "illuminate/support": "^8.0|^9.0|^10.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "TobyMaxham\\LaravelProperties\\": "src"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
