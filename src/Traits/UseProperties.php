@@ -19,7 +19,7 @@ trait UseProperties
 
     public function getProperty(string $key, $default = null): mixed
     {
-        $properties = $this->{$propertiesField};
+        $properties = $this->{$this->propertiesField};
         if (null == $properties || ! is_array($properties)) {
             return $default;
         }
@@ -36,7 +36,7 @@ trait UseProperties
     {
         throw_unless($this instanceof Model, InvalidObjectTypeException::class);
 
-        $properties = $this->{$propertiesField};
+        $properties = $this->{$this->propertiesField};
         if (null == $properties) {
             $properties = [];
         } elseif (! is_array($properties)) {
@@ -44,7 +44,7 @@ trait UseProperties
         }
 
         Arr::set($properties, $key, $value);
-        $this->{$propertiesField} = $properties;
+        $this->{$this->propertiesField} = $properties;
     }
 
     /**
@@ -52,8 +52,8 @@ trait UseProperties
      */
     public function emptyProperties(): ?array
     {
-        $value = $this->{$propertiesField};
-        $this->{$propertiesField} = [];
+        $value = $this->{$this->propertiesField};
+        $this->{$this->propertiesField} = [];
 
         return $value;
     }
