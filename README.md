@@ -99,6 +99,28 @@ $model->getProperty('foo.baz', 'another Value'); // 'another Value'
 ```
 
 
+### Change the database field
+
+By default, the database field `properties` will be used.
+You can change this behavoi by add the name with field should be used.
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use TobyMaxham\LaravelProperties\Traits\UseProperties;
+
+class YourEloquentModel extends Model
+{
+    use UseProperties;
+
+    protected string $propertiesField = 'properties';
+}
+```
+
+
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
@@ -106,7 +128,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 
 ## Security Vulnerabilities
 
-If you've found a bug regarding security please mail git@maxham.de instead of using the issue tracker.
+If you've found a bug regarding security, please mail git@maxham.de instead of using the issue tracker.
 
 
 ## Support me

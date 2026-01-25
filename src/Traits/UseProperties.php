@@ -15,12 +15,11 @@ use TobyMaxham\LaravelProperties\Exceptions\InvalidAttributeTypeException;
  */
 trait UseProperties
 {
-    /**
-     * @return mixed
-     */
-    public function getProperty(string $key, $default = null)
+    protected string $propertiesField = 'properties';
+
+    public function getProperty(string $key, $default = null): mixed
     {
-        $properties = $this->properties;
+        $properties = $this->{$propertiesField};
         if (null == $properties || ! is_array($properties)) {
             return $default;
         }
@@ -29,9 +28,6 @@ trait UseProperties
     }
 
     /**
-     * @param  string  $key
-     * @param          $value
-     * @return void
      * @throws InvalidAttributeTypeException
      * @throws InvalidObjectTypeException
      * @throws Throwable
@@ -40,24 +36,24 @@ trait UseProperties
     {
         throw_unless($this instanceof Model, InvalidObjectTypeException::class);
 
-        $properties = $this->properties;
+        $properties = $this->{$propertiesField};
         if (null == $properties) {
             $properties = [];
-        } elseif (!is_array($properties)) {
-            throw new InvalidAttributeTypeException();
+        } elseif (! is_array($properties)) {
+            throw new InvalidAttributeTypeException;
         }
 
         Arr::set($properties, $key, $value);
-        $this->properties = $properties;
+        $this->{$propertiesField} = $properties;
     }
 
     /**
      * @return array|null
      */
-    public function emptyProperties()
+    public function emptyProperties(): ?array
     {
-        $value = $this->properties;
-        $this->properties = [];
+        $value = $this->{$propertiesField};
+        $this->{$propertiesField} = [];
 
         return $value;
     }

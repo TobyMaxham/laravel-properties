@@ -4,7 +4,4 @@ namespace TobyMaxham\LaravelProperties\Exceptions;
 
 use Exception;
 
-class InvalidObjectTypeException extends Exception
-{
-
-}
+class InvalidObjectTypeException extends Exception {}
