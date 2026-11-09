@@ -1,60 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TobyMaxham\LaravelProperties\Traits;
 
-use Throwable;
-use Illuminate\Support\Arr;
-use Illuminate\Database\Eloquent\Model;
-use TobyMaxham\LaravelProperties\Exceptions\InvalidObjectTypeException;
-use TobyMaxham\LaravelProperties\Exceptions\InvalidAttributeTypeException;
+use TobyMaxham\LaravelProperties\HasProperties;
 
 /**
- * @mixin Model
- *
- * @property array|null $properties
+ * @deprecated Use `TobyMaxham\LaravelProperties\HasProperties`. Will be removed in 3.0.
  */
 trait UseProperties
 {
-    protected string $propertiesField = 'properties';
-
-    public function getProperty(string $key, $default = null): mixed
-    {
-        $properties = $this->{$this->propertiesField};
-        if (null == $properties || ! is_array($properties)) {
-            return $default;
-        }
-
-        return Arr::get($properties, $key);
-    }
-
-    /**
-     * @throws InvalidAttributeTypeException
-     * @throws InvalidObjectTypeException
-     * @throws Throwable
-     */
-    public function setProperty(string $key, $value): void
-    {
-        throw_unless($this instanceof Model, InvalidObjectTypeException::class);
-
-        $properties = $this->{$this->propertiesField};
-        if (null == $properties) {
-            $properties = [];
-        } elseif (! is_array($properties)) {
-            throw new InvalidAttributeTypeException;
-        }
-
-        Arr::set($properties, $key, $value);
-        $this->{$this->propertiesField} = $properties;
-    }
-
-    /**
-     * @return array|null
-     */
-    public function emptyProperties(): ?array
-    {
-        $value = $this->{$this->propertiesField};
-        $this->{$this->propertiesField} = [];
-
-        return $value;
-    }
+    use HasProperties;
 }
