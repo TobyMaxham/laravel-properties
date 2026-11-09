@@ -46,6 +46,23 @@ trait HasProperties
      */
     protected function initializeHasProperties(): void
     {
+        $this->applyPropertiesCast();
+    }
+
+    /**
+     * Eloquent calls the `initialize…()` methods in the order of `ReflectionClass::getMethods()`, which PHP
+     * does not guarantee. If `initializeHasAttributes()` runs after `initializeHasProperties()`, it would
+     * overwrite the cast with the one of `casts()`. So the cast is applied again right after it.
+     */
+    protected function initializeHasAttributes(): void
+    {
+        parent::initializeHasAttributes();
+
+        $this->applyPropertiesCast();
+    }
+
+    private function applyPropertiesCast(): void
+    {
         $column = $this->propertiesColumn();
         $existing = $this->getCasts()[$column] ?? null;
 

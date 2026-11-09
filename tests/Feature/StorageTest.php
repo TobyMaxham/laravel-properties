@@ -255,3 +255,23 @@ class UppercaseKeysCast implements CastsAttributes
         return json_encode($value);
     }
 }
+
+// Eloquent calls the initializers in the order of ReflectionClass::getMethods(), which differs between environments.
+it('keeps the cast when casts() is merged after the trait was initialized', function (string $cast, PropertiesCast $expected) {
+    $class = 'LateCasts'.md5($cast);
+    eval(sprintf(
+        'class %s extends %s { protected function casts(): array { return ["properties" => %s]; } }',
+        $class, Item::class, var_export($cast, true),
+    ));
+    $item = new $class;
+
+    // Simulate the other order: initializeHasProperties() first, then initializeHasAttributes().
+    $item->setRawAttributes([]);
+    (fn () => $this->initializeHasProperties())->call($item);
+    (fn () => $this->initializeHasAttributes())->call($item);
+
+    expect($item->getCasts()['properties'])->toBe(AsProperties::using($expected));
+})->with([
+    'array'         => ['array', PropertiesCast::Array],
+    'AsArrayObject' => [AsArrayObject::class, PropertiesCast::Object],
+]);
