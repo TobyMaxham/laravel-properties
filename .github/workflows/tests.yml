@@ -18,7 +18,7 @@ jobs:
         with:
           php: '8.4'
           coverage: none
-      - uses: ramsey/composer-install@v3
+      - uses: ramsey/composer-install@v4
       - run: vendor/bin/pint --test src/ tests/
       - run: vendor/bin/phpstan analyse --no-progress --memory-limit=1G
 
@@ -55,7 +55,7 @@ jobs:
       - name: Require Laravel ${{ matrix.laravel }}
         run: composer require --no-update --dev "illuminate/support:^${{ matrix.laravel }}.0" "illuminate/database:^${{ matrix.laravel }}.0" "illuminate/console:^${{ matrix.laravel }}.0" "illuminate/filesystem:^${{ matrix.laravel }}.0" "orchestra/testbench:^${{ matrix.testbench }}.0"
 
-      - uses: ramsey/composer-install@v3
+      - uses: ramsey/composer-install@v4
         with:
           dependency-versions: ${{ matrix.dependencies || 'highest' }}
 
@@ -99,7 +99,7 @@ jobs:
           php: '8.4'
           extensions: pdo_mysql, pdo_pgsql
           coverage: none
-      - uses: ramsey/composer-install@v3
+      - uses: ramsey/composer-install@v4
 
       - name: MySQL
         run: vendor/bin/pest --compact
